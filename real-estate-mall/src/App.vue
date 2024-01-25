@@ -7,8 +7,8 @@
 
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
 
-  <div v-for="(item, i) in 3" :key="item">
-    <h4 class="product" :style="fontColor">{{ products[i] }}</h4>
+  <div class="product" v-for="(item, i) in 3" :key="item">
+    <h4 :style="fontColor">{{ products[i] }}</h4>
     <p>{{ prices[i] }} 만원</p>
     <!-- <button @click="reportCnt++">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
     <!-- <button @click="increase">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
