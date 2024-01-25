@@ -1,8 +1,8 @@
 <template>
 
   <!-- 상세페이지 modal template -->
-  <!-- <div class="bg-black" v-if="isModalOpen"> -->
-  <div class="bg-black" v-if="isModalOpen == true">
+  <div class="bg-black" v-if="isModalOpen">
+  <!-- <div class="bg-black" v-if="isModalOpen == true"> -->
     <div class="bg-white">
       <h4>상세페이지</h4>
       <p>상세페이지 내용</p>
@@ -15,39 +15,43 @@
     <a v-for="menu in menus" :key="menu"> {{ menu }} </a>
   </div>
 
-  <div class="product" v-for="(item, i) in 3" :key="item">
-    <!-- <img src="./assets/room0.jpg" class="room-img"> -->
-    <img class="room-img" :src="require('./assets/room' + i + '.jpg')">
-    <h4 :style="fontColor" @click="isModalOpen = true">{{ products[i] }}</h4>
-    <p>{{ prices[i] }} 만원</p>
-    <!-- <button @click="reportCnt++">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
-    <!-- <button @click="increase">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
-    <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ reportCnts[i] }}</span>
+  <div class="product" v-for="(item, i) in onerooms" :key="item">
+    <!-- <img class="room-img" :src="require('./assets/room' + i + '.jpg')"> -->
+    <!-- <img class="room-img" :src="onerooms[i].image"> -->
+    <img class="room-img" :src="item.image">
+    <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ products[i] }}</h4> -->
+    <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ onerooms[i].title }}</h4> -->
+    <h4 :style="fontColor" @click="isModalOpen = true">{{ item.title }}</h4>
+    <!-- <p>{{ prices[i] }} 만원</p> -->
+    <!-- <p>{{ onerooms[i].price }} 원</p> -->
+    <p>{{ item.price }} 원</p>
+    <!-- <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ reportCnts[i] }}</span> -->
+    <!-- <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ onerooms[i].reportCnt }}</span> -->
+    <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ item.reportCnt }}</span>
   </div>
 </template>
 
 <script>
 
+import oneroomList from './assets/onerooms';
 
 export default {
   name: 'App',
-  data() {  // state : 정보, UI의 현재 상태 저장
+  data() {
     return {
+      onerooms : oneroomList,
       isModalOpen: false,
-      prices : [50, 60, 70],
+      // prices : [50, 60, 70],
       fontColor : "color : blue",
-      products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
+      // products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
       menus : ['Home', 'Shop', 'About'],
-      // reportCnt : 0, 
-      reportCnts : [0, 0, 0]
+      // reportCnts : [0, 0, 0]
     }
   },
-  methods : { // 함수
-    // increase() { //
-    //   this.reportCnt++;
-    // }
+  methods : {
     increase : function(idx) {
-      this.reportCnts[idx]++;
+      // this.reportCnts[idx]++;
+      this.onerooms[idx].reportCnt++;
     }
   },
   components: {
