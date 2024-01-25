@@ -1,14 +1,24 @@
 <template>
 
+  <!-- 상세페이지 modal template -->
+  <!-- <div class="bg-black" v-if="isModalOpen"> -->
+  <div class="bg-black" v-if="isModalOpen == true">
+    <div class="bg-white">
+      <h4>상세페이지</h4>
+      <p>상세페이지 내용</p>
+      <button @click="isModalOpen = false">닫기</button>
+    </div>
+  </div>
+
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
     <a v-for="menu in menus" :key="menu"> {{ menu }} </a>
   </div>
 
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-
   <div class="product" v-for="(item, i) in 3" :key="item">
-    <h4 :style="fontColor">{{ products[i] }}</h4>
+    <!-- <img src="./assets/room0.jpg" class="room-img"> -->
+    <img class="room-img" :src="require('./assets/room' + i + '.jpg')">
+    <h4 :style="fontColor" @click="isModalOpen = true">{{ products[i] }}</h4>
     <p>{{ prices[i] }} 만원</p>
     <!-- <button @click="reportCnt++">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
     <!-- <button @click="increase">허위매물신고</button> <span>신고수 : {{ reportCnt }}</span> -->
@@ -21,8 +31,9 @@
 
 export default {
   name: 'App',
-  data() {
+  data() {  // state : 정보, UI의 현재 상태 저장
     return {
+      isModalOpen: false,
       prices : [50, 60, 70],
       fontColor : "color : blue",
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
@@ -45,6 +56,30 @@ export default {
 </script>
 
 <style>
+/* modal(상세페이지) */
+body {
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+.bg-black {
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+}
+.bg-white {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+.room-img {
+  width: 80%;
+  margin-top: 40px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,6 +89,7 @@ export default {
   /* margin-top: 60px; */
 }
 
+/* navigation */
 .menu {
   background: darkslateblue;
   padding: 15px;
