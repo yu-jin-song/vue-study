@@ -1,12 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <div>
-    <h4 class="red" :style="fontColor">XX 원룸</h4>
-    <p>{{ price1 }} 만원</p>
+    <h4 class="red" :style="fontColor">{{ products[0] }}</h4>
+    <p>{{ prices[0] }} 만원</p>
   </div>
   <div>
-    <h4>XX 원룸</h4>
-    <p>{{ price2 }} 만원</p>
+    <h4>{{ products[1] }}</h4>
+    <p>{{ prices[1] }} 만원</p>
+  </div>
+  <div>
+    <h4 class="red" :style="fontColor">{{ products[2] }}</h4>
+    <p>{{ prices[2] }} 만원</p>
   </div>
 </template>
 
@@ -18,9 +22,9 @@ export default {
   name: 'App',
   data() {  // 데이터 보관, 자료형은 object
     return {
-      price1 : 60,  // 자료이름 : 내용
-      price2 : 70,
+      prices : [50, 60, 70],  // 자료이름 : 내용
       fontColor : "color : blue",
+      products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
     }
   },
   components: {
