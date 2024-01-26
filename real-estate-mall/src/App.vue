@@ -1,8 +1,7 @@
 <template>
 
   <!-- 상세페이지 modal template -->
-  <div class="bg-black" v-if="isModalOpen">
-  <!-- <div class="bg-black" v-if="isModalOpen == true"> -->
+  <!-- <div class="bg-black" v-if="isModalOpen">
     <div class="bg-white">
       <img class="img" :src="onerooms[clickNo].image">
       <h4>{{onerooms[clickNo].title}}</h4>
@@ -10,12 +9,19 @@
       <p>{{onerooms[clickNo].price}} 원</p>
       <button @click="isModalOpen = false">닫기</button>
     </div>
-  </div>
+  </div> -->
+  <Modal/>
 
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
     <a v-for="menu in menus" :key="menu"> {{ menu }} </a>
   </div>
+
+    <!-- <div class="discount">
+      <h4>지금 결제하면 20% 할인</h4>
+    </div> -->
+    <Discount/>
+    <!-- <Discount></Discount> -->
 
   <div class="product" v-for="(item, i) in onerooms" :key="item">
     <!-- <img class="room-img" :src="require('./assets/room' + i + '.jpg')"> -->
@@ -36,6 +42,8 @@
 <script>
 
 import oneroomList from './assets/onerooms';
+import Discount from './components/DiscountBanner.vue';
+import Modal from './components/Modal.vue'
 
 export default {
   name: 'App',
@@ -58,6 +66,8 @@ export default {
     }
   },
   components: {
+    Discount : Discount,
+    Modal : Modal
   }
 }
 </script>
@@ -70,6 +80,13 @@ body {
 div {
   box-sizing: border-box;
 }
+.discount {
+  background: #eee;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
 .bg-black {
   width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
