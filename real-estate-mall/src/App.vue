@@ -4,8 +4,10 @@
   <div class="bg-black" v-if="isModalOpen">
   <!-- <div class="bg-black" v-if="isModalOpen == true"> -->
     <div class="bg-white">
-      <h4>상세페이지</h4>
-      <p>상세페이지 내용</p>
+      <img class="img" :src="onerooms[clickNo].image">
+      <h4>{{onerooms[clickNo].title}}</h4>
+      <p>{{onerooms[clickNo].content}}</p>
+      <p>{{onerooms[clickNo].price}} 원</p>
       <button @click="isModalOpen = false">닫기</button>
     </div>
   </div>
@@ -21,7 +23,7 @@
     <img class="room-img" :src="item.image">
     <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ products[i] }}</h4> -->
     <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ onerooms[i].title }}</h4> -->
-    <h4 :style="fontColor" @click="isModalOpen = true">{{ item.title }}</h4>
+    <h4 :style="fontColor" @click="isModalOpen = true; clickNo = i">{{ item.title }}</h4>
     <!-- <p>{{ prices[i] }} 만원</p> -->
     <!-- <p>{{ onerooms[i].price }} 원</p> -->
     <p>{{ item.price }} 원</p>
@@ -40,6 +42,7 @@ export default {
   data() {
     return {
       onerooms : oneroomList,
+      clickNo : 0,
       isModalOpen: false,
       // prices : [50, 60, 70],
       fontColor : "color : blue",
@@ -79,6 +82,10 @@ div {
   border-radius: 8px;
   padding: 20px;
 }
+.bg-white img {
+  width: 80%;
+}
+
 .room-img {
   width: 80%;
   margin-top: 40px;
