@@ -10,33 +10,29 @@
       <button @click="isModalOpen = false">닫기</button>
     </div>
   </div> -->
-  <Modal/>
+  <Modal :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
 
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
     <a v-for="menu in menus" :key="menu"> {{ menu }} </a>
   </div>
 
-    <!-- <div class="discount">
-      <h4>지금 결제하면 20% 할인</h4>
-    </div> -->
-    <Discount/>
-    <!-- <Discount></Discount> -->
+  <!-- 할인 배너 출력 -->
+  <!-- <div class="discount">
+    <h4>지금 결제하면 20% 할인</h4>
+  </div> -->
+  <Discount/>
+  <!-- <Discount></Discount> -->
 
-  <div class="product" v-for="(item, i) in onerooms" :key="item">
-    <!-- <img class="room-img" :src="require('./assets/room' + i + '.jpg')"> -->
-    <!-- <img class="room-img" :src="onerooms[i].image"> -->
+  <!-- 상품 목록 출력 -->
+  <!-- <div class="product" v-for="(item, i) in onerooms" :key="item">
     <img class="room-img" :src="item.image">
-    <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ products[i] }}</h4> -->
-    <!-- <h4 :style="fontColor" @click="isModalOpen = true">{{ onerooms[i].title }}</h4> -->
     <h4 :style="fontColor" @click="isModalOpen = true; clickNo = i">{{ item.title }}</h4>
-    <!-- <p>{{ prices[i] }} 만원</p> -->
-    <!-- <p>{{ onerooms[i].price }} 원</p> -->
     <p>{{ item.price }} 원</p>
-    <!-- <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ reportCnts[i] }}</span> -->
-    <!-- <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ onerooms[i].reportCnt }}</span> -->
     <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ item.reportCnt }}</span>
-  </div>
+  </div> -->
+  <!-- <card :onerooms="onerooms" /> -->
+  <Card :item="item" v-for="item in onerooms" :key="item" />
 </template>
 
 <script>
@@ -44,6 +40,7 @@
 import oneroomList from './assets/onerooms';
 import Discount from './components/DiscountBanner.vue';
 import Modal from './components/Modal.vue'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -67,7 +64,8 @@ export default {
   },
   components: {
     Discount : Discount,
-    Modal : Modal
+    Modal : Modal,
+    Card : Card
   }
 }
 </script>
