@@ -1,16 +1,7 @@
 <template>
 
   <!-- 상세페이지 modal template -->
-  <!-- <div class="bg-black" v-if="isModalOpen">
-    <div class="bg-white">
-      <img class="img" :src="onerooms[clickNo].image">
-      <h4>{{onerooms[clickNo].title}}</h4>
-      <p>{{onerooms[clickNo].content}}</p>
-      <p>{{onerooms[clickNo].price}} 원</p>
-      <button @click="isModalOpen = false">닫기</button>
-    </div>
-  </div> -->
-  <Modal :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
+  <Modal @closeModal="isModalOpen = false" :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
 
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
@@ -18,21 +9,14 @@
   </div>
 
   <!-- 할인 배너 출력 -->
-  <!-- <div class="discount">
-    <h4>지금 결제하면 20% 할인</h4>
-  </div> -->
-  <Discount/>
-  <!-- <Discount></Discount> -->
+  <Discount />
 
   <!-- 상품 목록 출력 -->
-  <!-- <div class="product" v-for="(item, i) in onerooms" :key="item">
-    <img class="room-img" :src="item.image">
-    <h4 :style="fontColor" @click="isModalOpen = true; clickNo = i">{{ item.title }}</h4>
-    <p>{{ item.price }} 원</p>
-    <button @click="increase(i)">허위매물신고</button> <span>신고수 : {{ item.reportCnt }}</span>
-  </div> -->
-  <!-- <card :onerooms="onerooms" /> -->
-  <Card :item="item" v-for="item in onerooms" :key="item" />
+  <!-- <Card @click="isModalOpen = true" :item="item" v-for="item in onerooms" :key="item" /> -->
+  <!-- 방법1. 자식 컴포넌트로부터 받아온 데이터 활용 -->
+  <Card @openModal="isModalOpen = true; clickNo = $event" @increaseReportCnt="increase($event)" :item="item" v-for="item in onerooms" :key="item" />
+  <!-- 방법2. 데이터 보관함에 저장해놓은 데이터 활용 -->
+  <!-- <Card @openModal="isModalOpen = true; clickNo = i" @increaseReportCnt="increase($event)" :item="item" v-for="item in onerooms" :key="item" /> -->
 </template>
 
 <script>
