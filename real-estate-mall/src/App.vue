@@ -13,7 +13,9 @@
   <!-- 할인 배너 출력 -->
   <Discount />
 
-  <button @click="priceSort">가격순정렬</button>
+  <button @click="priceAscSort">가격순정렬</button>
+  <button @click="priceDescSort">가격역순정렬</button>
+  <button @click="titleAscSort">상품명정렬(가나다순)</button>
   <button @click="sortBack">되돌리기</button>
 
   <!-- 상품 목록 출력 -->
@@ -44,11 +46,30 @@ export default {
     increase : function(idx) {
       this.onerooms[idx].reportCnt++;
     },
-    priceSort() {
+    priceAscSort() {
       // this.onerooms.sort(); // 문자열 정렬
       this.onerooms.sort(function(left, right) {
         // return left - right;  // 현재 데이터가 object 타입이므로 정렬 불가
         return left.price - right.price;
+      });
+    },
+    priceDescSort() {
+      this.onerooms.sort(function(left, right) {
+        return right.price - left.price;
+      });
+    },
+    titleAscSort() {
+      this.onerooms.sort(function(left, right) {
+        const leftTitle = left.title.toLowerCase();
+        const rightTitle = right.title.toLowerCase();
+        
+        if(leftTitle > rightTitle) {
+          return 1;
+        } else if(leftTitle < rightTitle) {
+          return -1;
+        } else {
+          return 0;
+        }
       });
     },
     sortBack() {
