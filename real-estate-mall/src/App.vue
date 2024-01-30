@@ -33,7 +33,6 @@ export default {
   name: 'App',
   data() {
     return {
-      // originalOnerooms : ...oneroomList,
       originalOnerooms : [...oneroomList],
       onerooms : oneroomList,
       clickNo : 0,
@@ -47,9 +46,7 @@ export default {
       this.onerooms[idx].reportCnt++;
     },
     priceAscSort() {
-      // this.onerooms.sort(); // 문자열 정렬
       this.onerooms.sort(function(left, right) {
-        // return left - right;  // 현재 데이터가 object 타입이므로 정렬 불가
         return left.price - right.price;
       });
     },
@@ -62,7 +59,7 @@ export default {
       this.onerooms.sort(function(left, right) {
         const leftTitle = left.title.toLowerCase();
         const rightTitle = right.title.toLowerCase();
-        
+
         if(leftTitle > rightTitle) {
           return 1;
         } else if(leftTitle < rightTitle) {
@@ -73,7 +70,6 @@ export default {
       });
     },
     sortBack() {
-      // this.onerooms = this.originalOnerooms;
       this.onerooms = [...this.originalOnerooms];
     }
   },
@@ -157,7 +153,6 @@ div {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
 }
 
 /* navigation */

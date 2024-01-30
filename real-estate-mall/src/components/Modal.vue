@@ -4,13 +4,10 @@
             <img class="img" :src="onerooms[clickNo].image">
             <h4>{{onerooms[clickNo].title}}</h4>
             <p>{{onerooms[clickNo].content}}</p>
-            <!-- <input @input="month = $event.target.value" /> -->
-            <!-- <input v-model="month" /> -->
 
             <!-- IME 작성 시 실시간 데이터 바인딩을 위한 코드 -->
             <input @input="month = $event.target.value" :value="month" />
 
-            <!-- <p>{{month}}개월  {{onerooms[clickNo].price * month}} 원</p> -->
             <p>{{month}}개월  {{onerooms[clickNo].price + month}} 원</p>
             <button @click="$emit('closeModal')">닫기</button>
         </div>
@@ -29,10 +26,6 @@ export default {
     },
     watch : {
         month(data) {
-            // if (data > 12) {
-            //     alert('개월 수는 12를 넘어갈 수 없습니다.')
-            // }
-
             if(data === '') {    // 데이터 입력이 없는 경우
                 return; // 아무런 처리도 하지 않음
             }
