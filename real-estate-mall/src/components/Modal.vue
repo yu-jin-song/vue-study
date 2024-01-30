@@ -37,7 +37,7 @@ export default {
                 return; // 아무런 처리도 하지 않음
             }
 
-            if(isNaN(data) || data.includes(' ')) {  // 데이터가 숫자가 아닌 경우
+            if(data.isNaN() || data.includes(' ')) {  // 데이터가 숫자가 아닌 경우
                 alert('숫자만 입력해주세요.');
 
                 if(/\d/.test(data)) { // 숫자가 존재하는 경우
