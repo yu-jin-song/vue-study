@@ -11,7 +11,7 @@
   </div>
 
   <!-- 할인 배너 출력 -->
-  <Discount v-if="showDiscount" />
+  <Discount v-if="showDiscount" :discountRate="discountRate"/>
 
   <button @click="priceAscSort">가격순정렬</button>
   <button @click="priceDescSort">가격역순정렬</button>
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       showDiscount : true,  // 할인 배너 표시 여부
+      discountRate : 30,  // 할인률
       originalOnerooms : [...oneroomList],
       onerooms : oneroomList,
       clickNo : 0,
@@ -75,12 +76,16 @@ export default {
     }
   },
   mounted() {
-    // setTimeout(function() {
+    // setTimeout(() => {
     //   this.showDiscount = false;
     // }, 2000);
-    setTimeout(() => {
-      this.showDiscount = false;
-    }, 2000);
+    const timer = setInterval((() => {
+      this.discountRate--;
+      if(this.discountRate < 0) { // 할인률이 0보다 작아지면
+        clearInterval(timer); // 타이머 삭제
+        this.showDiscount = false;  // 할인 배너 미표시
+      }
+    }), 1000);
   },
   components: {
     Discount : Discount,
