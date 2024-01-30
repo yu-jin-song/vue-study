@@ -1,7 +1,14 @@
 <template>
 
   <!-- 상세페이지 modal template -->
-  <Modal @closeModal="isModalOpen = false" :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
+  <!-- 방법1. CSS 적용 -->
+  <!-- <div class="start" :class="{ end : isModalOpen }"> -->
+  
+  <!-- 방법2. Transition 태그 적용 -->
+  <Transition name="fade">
+    <Modal @closeModal="isModalOpen = false" :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
+  </Transition>
+  <!-- </div> -->
 
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
@@ -55,6 +62,36 @@ export default {
 </script>
 
 <style>
+/* 등장 애니메이션 */
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 0.5s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+/* 퇴장 애니메이션 */
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-leave-active {
+  transition: all 0.5s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
+.start {
+  opacity: 0;
+  transition: all 1s;
+}
+.end {
+  opacity: 1;
+}
+
 /* modal(상세페이지) */
 body {
   margin: 0;
