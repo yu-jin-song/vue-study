@@ -11,7 +11,7 @@
   </div>
 
   <!-- 할인 배너 출력 -->
-  <Discount />
+  <Discount v-if="showDiscount" />
 
   <button @click="priceAscSort">가격순정렬</button>
   <button @click="priceDescSort">가격역순정렬</button>
@@ -33,6 +33,7 @@ export default {
   name: 'App',
   data() {
     return {
+      showDiscount : true,  // 할인 배너 표시 여부
       originalOnerooms : [...oneroomList],
       onerooms : oneroomList,
       clickNo : 0,
@@ -72,6 +73,14 @@ export default {
     sortBack() {
       this.onerooms = [...this.originalOnerooms];
     }
+  },
+  mounted() {
+    // setTimeout(function() {
+    //   this.showDiscount = false;
+    // }, 2000);
+    setTimeout(() => {
+      this.showDiscount = false;
+    }, 2000);
   },
   components: {
     Discount : Discount,
