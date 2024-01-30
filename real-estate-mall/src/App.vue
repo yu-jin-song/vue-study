@@ -1,14 +1,9 @@
 <template>
 
   <!-- 상세페이지 modal template -->
-  <!-- 방법1. CSS 적용 -->
-  <!-- <div class="start" :class="{ end : isModalOpen }"> -->
-  
-  <!-- 방법2. Transition 태그 적용 -->
   <Transition name="fade">
     <Modal @closeModal="isModalOpen = false" :onerooms="onerooms" :clickNo="clickNo" :isModalOpen="isModalOpen" />
   </Transition>
-  <!-- </div> -->
 
   <!-- 상단 내비게이션 메뉴 -->
   <div class="menu">
@@ -18,12 +13,11 @@
   <!-- 할인 배너 출력 -->
   <Discount />
 
+  <button @click="priceSort">가격순정렬</button>
+  <button @click="sortBack">되돌리기</button>
+
   <!-- 상품 목록 출력 -->
-  <!-- <Card @click="isModalOpen = true" :item="item" v-for="item in onerooms" :key="item" /> -->
-  <!-- 방법1. 자식 컴포넌트로부터 받아온 데이터 활용 -->
   <Card @openModal="isModalOpen = true; clickNo = $event" @increaseReportCnt="increase($event)" :item="item" v-for="item in onerooms" :key="item" />
-  <!-- 방법2. 데이터 보관함에 저장해놓은 데이터 활용 -->
-  <!-- <Card @openModal="isModalOpen = true; clickNo = i" @increaseReportCnt="increase($event)" :item="item" v-for="item in onerooms" :key="item" /> -->
 </template>
 
 <script>
@@ -37,20 +31,29 @@ export default {
   name: 'App',
   data() {
     return {
+      // originalOnerooms : ...oneroomList,
+      originalOnerooms : [...oneroomList],
       onerooms : oneroomList,
       clickNo : 0,
       isModalOpen: false,
-      // prices : [50, 60, 70],
       fontColor : "color : blue",
-      // products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
       menus : ['Home', 'Shop', 'About'],
-      // reportCnts : [0, 0, 0]
     }
   },
   methods : {
     increase : function(idx) {
-      // this.reportCnts[idx]++;
       this.onerooms[idx].reportCnt++;
+    },
+    priceSort() {
+      // this.onerooms.sort(); // 문자열 정렬
+      this.onerooms.sort(function(left, right) {
+        // return left - right;  // 현재 데이터가 object 타입이므로 정렬 불가
+        return left.price - right.price;
+      });
+    },
+    sortBack() {
+      // this.onerooms = this.originalOnerooms;
+      this.onerooms = [...this.originalOnerooms];
     }
   },
   components: {
