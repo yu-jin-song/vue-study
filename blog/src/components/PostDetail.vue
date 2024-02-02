@@ -6,6 +6,7 @@
                     <h2 class="blog-post-title">{{ posts[$route.params.id].title }}</h2>
                     <p class="blog-post-meta">{{ posts[$route.params.id].date }}</p>
                     <p>{{ posts[$route.params.id].content }}</p>
+                    <router-view></router-view>
                 </div>
             </div>
         </div>

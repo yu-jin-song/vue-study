@@ -7,8 +7,10 @@
                 </h3>
 
                 <div class="blog-post" v-for="post in posts" :key="post">
-                    <h2 class="blog-post-title">
-                        <router-link to="/detail">{{ post.title }}</router-link>
+                    <h2 class="blog-post-title" @click="$router.push(`/detail/${ post.number }`)">
+                        <!-- <router-link to="/detail"> -->
+                            {{ post.title }}
+                        <!-- </router-link> -->
                     </h2>
                     <p class="blog-post-meta">{{ post.date }}</p>
                 </div>
