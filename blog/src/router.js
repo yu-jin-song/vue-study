@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+// import { createRouter, createWebHashHistory } from "vue-router";
 import Main from './components/MainHome.vue';
 import List from './components/PostList.vue';
 import Detail from './components/PostDetail.vue';
@@ -33,6 +34,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
+//   history: createWebHashHistory(),
   routes,
 });
 
