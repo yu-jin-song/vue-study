@@ -21,7 +21,7 @@
     <div v-if="step === 2">
       <div class="upload-image" :style="{ backgroundImage : `url(${url})` }"></div>
       <div class="write">
-        <textarea class="write-box">write!</textarea>
+        <textarea class="write-box" @input="$emit('content', $event.target.value)">write!</textarea>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
   },
   components: {
     Post: Post,
-  },
+  }
 };
 </script>
 

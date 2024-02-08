@@ -4,13 +4,13 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <!-- <li @click="next">Next</li> -->
-      <li @click="step++">Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="posts" :step="step" :url="url"/>
+  <Container @content="content = $event" :posts="posts" :step="step" :url="url"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -33,9 +33,9 @@ export default {
     return {
       posts : posts,
       clickedMoreCnt : 0,
-      // selectedTabNum : 0,
       step : 0,
-      url : ""
+      url : "",
+      content : ""
     }
   },
   components: {
@@ -57,9 +57,20 @@ export default {
       this.url = URL.createObjectURL(file[0]);
       this.step = 1;
     },
-    // next() {
-    //   this.step++;
-    // }
+    publish() {
+      const newPost = {
+        name: "작성자",
+        userImage: "https://picsum.photos/100?random=2",
+        postImage: this.url,
+        likes: 0,
+        date: "Feb 8",
+        liked: false,
+        content: this.content,
+        filter: "perpetua"
+      };
+      this.posts.unshift(newPost);
+      this.step = 0;
+    }
   }
 };
 </script>
