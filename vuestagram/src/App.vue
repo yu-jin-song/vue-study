@@ -4,7 +4,8 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <!-- <li @click="next">Next</li> -->
+      <li @click="step++">Next</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
@@ -30,9 +31,9 @@ export default {
   name: "App",
   data() {
     return {
-      posts: posts,
-      clickMoreCnt: 0,
-      // selectedTabNum: 0,
+      posts : posts,
+      clickedMoreCnt : 0,
+      // selectedTabNum : 0,
       step : 0,
       url : ""
     }
@@ -42,10 +43,10 @@ export default {
   },
   methods: {
     more() {
-      axios.get('https://codingapple1.github.io/vue/more' + this.clickMoreCnt + '.json')
+      axios.get('https://codingapple1.github.io/vue/more' + this.clickedMoreCnt + '.json')
       .then((result) => {
         this.posts.push(result.data);
-        this.clickMoreCnt++;
+        this.clickedMoreCnt++;
       })
       .catch(() => {
         alert("다음 게시물이 없습니다.");
@@ -55,7 +56,10 @@ export default {
       const file = e.target.files;
       this.url = URL.createObjectURL(file[0]);
       this.step = 1;
-    }
+    },
+    // next() {
+    //   this.step++;
+    // }
   }
 };
 </script>
