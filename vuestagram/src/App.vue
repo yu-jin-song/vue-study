@@ -9,24 +9,16 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="posts" :step="step" />
+  <Container :posts="posts" :step="step" :url="url"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" multiple accept="image/*" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
 
-<!-- tab 기능 테스트
-  <div v-if="selectedTabNum === 0">내용0</div>
-  <div v-if="selectedTabNum === 1">내용1</div>
-  <div v-if="selectedTabNum === 2">내용2</div>
-  <button @click="selectedTabNum = 0">버튼0</button>
-  <button @click="selectedTabNum = 1">버튼1</button>
-  <button @click="selectedTabNum = 2">버튼2</button>
- -->
 </template>
 
 <script>
@@ -41,7 +33,8 @@ export default {
       posts: posts,
       clickMoreCnt: 0,
       // selectedTabNum: 0,
-      step : 2
+      step : 0,
+      url : ""
     }
   },
   components: {
@@ -49,7 +42,6 @@ export default {
   },
   methods: {
     more() {
-      // axios.get(`https://codingapple1.github.io/vue/more${this.clickMoreCnt}.json`)
       axios.get('https://codingapple1.github.io/vue/more' + this.clickMoreCnt + '.json')
       .then((result) => {
         this.posts.push(result.data);
@@ -58,6 +50,11 @@ export default {
       .catch(() => {
         alert("다음 게시물이 없습니다.");
       });
+    },
+    upload(e) {
+      const file = e.target.files;
+      this.url = URL.createObjectURL(file[0]);
+      this.step = 1;
     }
   }
 };

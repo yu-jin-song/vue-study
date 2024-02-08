@@ -6,13 +6,8 @@
     </div>
 
     <!-- 필터 선택 페이지 -->
-    <!-- 방법1.
-    <div class="upload-image" v-if="step === 1"></div>
-    <div class="filters" v-if="step === 1">
-     -->
-    <!-- 방법2. wrapper -->
     <div v-if="step === 1">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{ backgroundImage : `url(${url})` }"></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -23,13 +18,8 @@
     </div>
 
     <!-- 글 작성 페이지 -->
-    <!-- 방법1.
-    <div class="upload-image" v-if="step === 2"></div>
-    <div class="write" v-if="step === 2">
-     -->
-    <!-- 방법2. wrapper -->
     <div v-if="step === 2">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{ backgroundImage : `url(${url})` }"></div>
       <div class="write">
         <textarea class="write-box">write!</textarea>
       </div>
@@ -45,6 +35,7 @@ export default {
   props: {
     posts: Array,
     step: Number,
+    url: String
   },
   components: {
     Post: Post,
