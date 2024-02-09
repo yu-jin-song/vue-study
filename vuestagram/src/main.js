@@ -5,5 +5,6 @@ const emitter = mitt();
 const app = createApp(App);
 app.config.globalProperties.emitter = emitter;
 
-// createApp(App).mount('#app')
-app.mount('#app')
+import store from './assets/js/store.js';
+
+app.use(store).mount('#app')

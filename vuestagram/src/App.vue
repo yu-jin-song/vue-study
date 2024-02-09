@@ -10,7 +10,6 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <!-- <Container @content="content = $event" :posts="posts" :step="step" :url="url" /> -->
   <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" />
   <button @click="more">더보기</button>
 

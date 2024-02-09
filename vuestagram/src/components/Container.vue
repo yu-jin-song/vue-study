@@ -2,14 +2,13 @@
   <div>
     <!-- 게시글 -->
     <div v-if="step === 0">
-      <Post :post="posts[i]" v-for="(item, i) in posts" :key="i" />
+      <Post :post="post" :index="i" v-for="(post, i) in posts" :key="i" />
     </div>
 
     <!-- 필터 선택 페이지 -->
     <div v-if="step === 1">
       <div :class="`${selectedFilter} upload-image`" :style="{ backgroundImage : `url(${url})`}"></div>
       <div class="filters">
-        <!-- <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter" @selectedFilter="selectedFilter = $event"> -->
         <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter">
           <span style="color : black">{{ filter }}</span>
         </FilterBox>
@@ -38,7 +37,6 @@ export default {
       filters : filters,
       isPlaceHolderActive : true,
       placeholder : 'write!'
-      // selectedFilter : ""
     }
   },
   props: {
