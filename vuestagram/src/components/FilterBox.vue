@@ -1,5 +1,6 @@
 <template>
-  <div :class="`${filter} filter-item`" :style="`background-image : url(${image})`" @click="$emit('selectedFilter', filter)"  >
+  <!-- <div :class="`${filter} filter-item`" :style="`background-image : url(${image})`" @click="$emit('selectedFilter', filter)"  > -->
+  <div :class="`${filter} filter-item`" :style="`background-image : url(${image})`" @click="fire" >
     <slot></slot>
     <!-- <span style="color : black">{{ filter }}</span> -->
   </div>
@@ -12,6 +13,11 @@ export default {
     image: String,
     filter: String,
   },
+  methods: {
+    fire() {
+      this.emitter.emit('selectedFilter', this.filter);
+    }
+  }
 };
 </script>
 

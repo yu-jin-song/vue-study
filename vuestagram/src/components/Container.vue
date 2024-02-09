@@ -9,12 +9,8 @@
     <div v-if="step === 1">
       <div :class="`${selectedFilter} upload-image`" :style="{ backgroundImage : `url(${url})`}"></div>
       <div class="filters">
-        <!-- <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div> -->
-        <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter" @selectedFilter="selectedFilter = $event">
+        <!-- <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter" @selectedFilter="selectedFilter = $event"> -->
+        <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter">
           <span style="color : black">{{ filter }}</span>
         </FilterBox>
       </div>
@@ -22,9 +18,9 @@
 
     <!-- 글 작성 페이지 -->
     <div v-if="step === 2">
-      <div class="upload-image" :style="{ backgroundImage : `url(${url})` }"></div>
+      <div :class="`${selectedFilter} upload-image`" :style="{ backgroundImage : `url(${url})` }"></div>
       <div class="write">
-        <textarea class="write-box" @input="$emit('content', $event.target.value)">write!</textarea>
+        <textarea class="write-box" :placeholder="placeholder" @focus="handleFocus" @blur="handleBlur" @input="$emit('content', $event.target.value)" />
       </div>
     </div>
   </div>
@@ -40,17 +36,32 @@ export default {
   data() {
     return {
       filters : filters,
-      selectedFilter : ""
+      isPlaceHolderActive : true,
+      placeholder : 'write!'
+      // selectedFilter : ""
     }
   },
   props: {
     posts: Array,
     step: Number,
-    url: String
+    url: String,
+    selectedFilter : String
   },
   components: {
     Post: Post,
     FilterBox: FilterBox
+  },
+  methods: {
+    handleFocus() {
+      this.placeholder = '';
+      this.isPlaceHolderActive = false;
+    },
+    handleBlur(event) {
+      this.isPlaceHolderActive = true;
+      if(event.target.value === '') {
+        this.placeholder = 'write!';
+      }
+    }
   }
 };
 </script>

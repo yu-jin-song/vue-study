@@ -10,7 +10,8 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container @content="content = $event" :posts="posts" :step="step" :url="url"/>
+  <!-- <Container @content="content = $event" :posts="posts" :step="step" :url="url" /> -->
+  <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" />
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -35,7 +36,8 @@ export default {
       clickedMoreCnt : 0,
       step : 0,
       url : "",
-      content : ""
+      content : "",
+      filter : "",
     }
   },
   components: {
@@ -66,11 +68,16 @@ export default {
         date: "Feb 8",
         liked: false,
         content: this.content,
-        filter: "perpetua"
+        filter: this.filter
       };
       this.posts.unshift(newPost);
       this.step = 0;
     }
+  },
+  mounted() {
+    this.emitter.on('selectedFilter', (data) => {
+      this.filter = data;
+    });
   }
 };
 </script>
