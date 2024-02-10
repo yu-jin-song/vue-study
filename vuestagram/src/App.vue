@@ -10,8 +10,12 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" />
-  <button @click="more">더보기</button>
+  <!-- <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" /> -->
+  <Container @content="content = $event" :posts="$store.state.posts" :step="step" :url="url" :selectedFilter="filter" />
+  <!-- <button @click="more">더보기</button> -->
+  <button @click="$store.dispatch('more', $store.state.clickedMoreCnt)">더보기</button>
+
+  <!-- <p>{{ $store.state.more }}</p> -->
 
   <div class="footer">
     <ul class="footer-button-plus">
