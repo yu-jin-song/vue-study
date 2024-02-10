@@ -1,8 +1,8 @@
 <template>
   <div style="padding: 10px">
     <h4>팔로워</h4>
-    <input placeholder="🔎" />
-    <div class="post-header" v-for="follower in follwers" :key="follower">
+    <input placeholder="🔎" @input="search"/>
+    <div class="post-header" v-for="follower in followers" :key="follower">
       <div class="profile" :style="`background-image : url(${follower.image})`"></div>
       <span class="profile-name">{{ follower.name }}</span>
     </div>
@@ -16,15 +16,29 @@ import axios from "axios";
 export default {
   name: "MyPage",
   setup() {
-    const follwers = ref([]);
+    const originalFollowers = ref([]);
+    const followers = ref([]);
 
     onMounted(() => {
       axios.get("/vuestagram/follower.json").then((result) => {
-        follwers.value = result.data;
+        originalFollowers.value = result.data;
+        followers.value = result.data;
       });
     });
 
-    return { follwers };
+    function search(event) {
+        const searchText = event.target.value;
+
+        if(searchText.trim() === '') {
+            followers.value = [...originalFollowers.value];
+        } else {
+            followers.value = originalFollowers.value.filter((follower) => {
+            return follower.name.includes(searchText);
+        });
+        }
+    }
+
+    return { followers, search };
   },
 };
 </script>
