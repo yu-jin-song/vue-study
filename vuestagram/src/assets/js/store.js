@@ -5,19 +5,14 @@ import posts from './posts';
 const store = createStore({
   state() {
     return {
-      age : 20,
-      // post : {},
       posts : posts,
+      step : 0,
       more : {},
       clickedMoreCnt : 0
     }
   },
   mutations : {
-    increaseAge(state) {
-        state.age++;
-    },
     clickedLikes(state, data) {
-      // state.post = post;
       state.posts[data.index] = data.post;
 
       if(state.posts[data.index].liked == false) {
@@ -28,28 +23,40 @@ const store = createStore({
         state.posts[data.index].liked = false;
       }
     },
-    publish(state, data) {
+    clickedMore(state, data) {
       state.more = data.more;
       state.posts.push(state.more);
-      
+
       state.clickedMoreCnt = data.clickedMoreCnt;
       state.clickedMoreCnt++;
+    },
+    publish(state, data) {
+      const newPost = {
+        name: "작성자",
+        userImage: "https://picsum.photos/100?random=2",
+        postImage: data.url,
+        likes: 0,
+        date: "Feb 8",
+        liked: false,
+        content: data.content,
+        filter: data.filter
+      };
+      state.posts.unshift(newPost);
+      state.step = 0;
+    },
+    nextStep(state) {
+      state.step++;
     }
   },
   actions : {
     more(context, clickedMoreCnt) {
-      // context.clickedMoreCnt = clickedMoreCnt;
-      console.log("clickedMoreCnt = " + clickedMoreCnt);
       axios.get('https://codingapple1.github.io/vue/more' + clickedMoreCnt + '.json')
       .then((result) => {
-        console.log(JSON.stringify(result));
         const params = {
           more : result.data,
           clickedMoreCnt : clickedMoreCnt
         };
-        context.commit('publish', params);
-        // this.posts.push(result.data);
-        // this.clickedMoreCnt++;
+        context.commit('clickedMore', params);
       })
       .catch(() => {
         alert("다음 게시물이 없습니다.");
