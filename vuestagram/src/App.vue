@@ -4,14 +4,14 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="$store.state.step == 1" @click="$store.commit('nextStep')">Next</li>
-      <li v-if="$store.state.step == 2" @click="$store.commit('publish', {url : url, content : content, filter : filter})">publish</li>
+      <li v-if="step == 1" @click="nextStep">Next</li>
+      <li v-if="step == 2" @click="publish({url : url, content : content, filter : filter})">publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container @content="content = $event" :posts="$store.state.posts" :step="$store.state.step" :url="url" :selectedFilter="filter" />
-  <button @click="$store.dispatch('more', $store.state.clickedMoreCnt)">더보기</button>
+  <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" />
+  <button @click="$store.dispatch('more', clickedMoreCnt)">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex';
 import Container from "./components/Container.vue";
 
 export default {
@@ -38,11 +39,15 @@ export default {
     Container: Container,
   },
   methods: {
+    ...mapMutations(['nextStep', 'publish']),
     upload(e) {
       const file = e.target.files;
       this.url = URL.createObjectURL(file[0]);
       this.$store.state.step = 1;
     }
+  },
+  computed: {
+    ...mapState(['step', 'posts', 'clickedMoreCnt'])
   },
   mounted() {
     this.emitter.on('selectedFilter', (data) => {
