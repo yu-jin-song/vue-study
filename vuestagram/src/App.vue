@@ -10,8 +10,8 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container @content="content = $event" :posts="posts" :step="step" :url="url" :selectedFilter="filter" />
-  <button @click="$store.dispatch('more', clickedMoreCnt)">더보기</button>
+  <Container @content="content = $event" :posts="posts" :url="url" :selectedFilter="filter" />
+  <button v-if="step == 0" @click="$store.dispatch('more', clickedMoreCnt)">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">

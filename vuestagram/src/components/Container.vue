@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- 게시글 -->
-    <div v-if="$store.state.step === 0">
+    <div v-if="step === 0">
       <Post :post="post" :index="i" v-for="(post, i) in posts" :key="i" />
     </div>
 
     <!-- 필터 선택 페이지 -->
-    <div v-if="$store.state.step === 1">
+    <div v-if="step === 1">
       <div :class="`${selectedFilter} upload-image`" :style="{ backgroundImage : `url(${url})`}"></div>
       <div class="filters">
         <FilterBox :image="url" :filter="filter" v-for="filter in filters" :key="filter">
@@ -16,19 +16,25 @@
     </div>
 
     <!-- 글 작성 페이지 -->
-    <div v-if="$store.state.step === 2">
+    <div v-if="step === 2">
       <div :class="`${selectedFilter} upload-image`" :style="{ backgroundImage : `url(${url})` }"></div>
       <div class="write">
         <textarea class="write-box" :placeholder="placeholder" @focus="handleFocus" @blur="handleBlur" @input="$emit('content', $event.target.value)" />
       </div>
     </div>
+
+    <!-- 팔로워 페이지 -->
+    <div v-if="step === 3">
+      <MyPage />
+    </div>
   </div>
 </template>
 
 <script>
+import filters from "../assets/js/filter.js";
 import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
-import filters from "../assets/js/filter.js";
+import MyPage from "./MyPage.vue";
 
 export default {
   name: "Container",
@@ -41,13 +47,13 @@ export default {
   },
   props: {
     posts: Array,
-    step: Number,
     url: String,
     selectedFilter : String
   },
   components: {
     Post: Post,
-    FilterBox: FilterBox
+    FilterBox: FilterBox,
+    MyPage: MyPage
   },
   methods: {
     handleFocus() {
@@ -59,6 +65,11 @@ export default {
       if(event.target.value === '') {
         this.placeholder = 'write!';
       }
+    }
+  },
+  computed: {
+    step() {
+      return this.$store.state.step;
     }
   }
 };

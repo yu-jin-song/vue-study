@@ -6,7 +6,7 @@ const store = createStore({
   state() {
     return {
       posts : posts,
-      step : 0,
+      step : 3,
       more : {},
       clickedMoreCnt : 0
     }
