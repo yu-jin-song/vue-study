@@ -24,6 +24,7 @@ Vue.js를 공부하며 진행한 토이 프로젝트
 - JavaScript
 - HTML
 - CSS
+- Git
 - Visual Studio Code
 
 <br><br>
